@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anton Coins</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .card {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 30px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            box-sizing: border-box;
+        }
+
+        h2 {
+            margin: 0 0 8px 0;
+            font-size: 24px;
+            color: #f8fafc;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .field {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #94a3b8;
+            text-transform: uppercase;
+        }
+
+        /* WICHTIG: Sichtbare Breite und Höhe für die Felder erzwingen */
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #0b0f19;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            color: #f8fafc;
+            font-size: 16px;
+            display: block;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            width: 100%;
+            height: 180px;
+            padding: 12px;
+            background-color: #0b0f19;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            color: #a7f3d0; 
+            font-family: monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            display: block;
+            resize: none;
+            box-sizing: border-box;
+        }
+
+        .footer-note {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-top: 8px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>Anton Coins</h2>
+        <div class="subtitle">Kopiere dieses Skript einfach in die Browserkonsole auf anton.app.</div>
+        
+        <div class="field">
+            <label for="amountInput">Anzahl an Münzen eingeben:</label>
+            <input type="number" id="amountInput" value="10" min="0">
+        </div>
+
+        <div class="field">
+            <label for="outputArea">Fertiges Skript:</label>
+            <textarea id="outputArea" readonly></textarea>
+            <div class="footer-note">Text markieren zum Kopieren</div>
+        </div>
+    </div>
+
+<script>
+    // Elemente auswählen
+    const amountInput = document.getElementById('amountInput');
+    const outputArea = document.getElementById('outputArea');
+
+    function updateTemplate() {
+        const anzahl = amountInput.value;
+        
+        // Das fertige Template
+        const template = `addCoins = function(amount) {
+    return typeof log != 'undefined' && log !== null ? log.log({
+        event: "adjustCoins",
+        value: amount
+    }) : void 8;
+};
+addCoins(${anzahl})`;
+
+        outputArea.value = template;
+    }
+
+    // Live-Updates aktivieren
+    amountInput.addEventListener('input', updateTemplate);
+    
+    // Erster Aufruf direkt beim Start
+    updateTemplate();
+</script>
+
+</body>
+</html>
